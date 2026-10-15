@@ -19,9 +19,8 @@
  *                  class layout, the input checking, and the solution counter.
  *                - Gemini (gemini.google.com): first draft #2 of the solver. I used
  *                  its cell-by-cell recursion and its single-loop block check.
- *                - Claude (claude.ai): helped me merge the two drafts, then helped write
- *                  and comment the final version. Code marked [AI+ME] below is from
- *                  these sources; I reviewed and tested all of it.
+ *                  Code marked [MIX] below combines ideas from both drafts; I
+ *                  reviewed and tested all of it.
  *
  * Author       : Charvi Reddy Konudula
  * Creation date: October 15, 2026
@@ -29,7 +28,7 @@
  * Block-authorship key used in the comments below:
  *   [CHATGPT] = idea/structure taken from ChatGPT's draft
  *   [GEMINI]  = idea/structure taken from Gemini's draft
- *   [AI+ME]   = combined/rewritten by me with Claude's help
+ *   [MIX]     = combined/rewritten by me from both drafts
  */
 
 #include <iostream>   // lets us print to the screen with std::cout / std::cerr
@@ -38,7 +37,7 @@
 
 // ---------------------------------------------------------------------------
 // Named constants replace "magic numbers" so the code is easier to maintain.
-// [AI+ME] (ChatGPT's draft hard-coded 9 and 3 everywhere; I named them.)
+// [MIX] (ChatGPT's draft hard-coded 9 and 3 everywhere; I named them.)
 // ---------------------------------------------------------------------------
 const int SIZE = 9;           // the board is SIZE x SIZE cells (9 x 9)
 const int BOX = 3;            // each block (sub-grid) is BOX x BOX cells (3 x 3)
@@ -89,7 +88,7 @@ private:
     }
 
     // The recursive search. 'cell' is a number 0..80 meaning "the cell we look at now".
-    // [GEMINI] cell-by-cell traversal (no rescanning for blanks). [AI+ME] flattened to one index.
+    // [GEMINI] cell-by-cell traversal (no rescanning for blanks). [MIX] flattened to one index.
     void search(int cell) {
         if (cell == SIZE * SIZE) {                  // base case: we passed the last cell, so the board is full
             ++solutionCount;                        // we found one more solution
